@@ -4,17 +4,15 @@ pipeline {
   tools {nodejs "node"}
  
   stages {
-    stage('build') {
-      steps {
-        sh 'npm install'
-      }
+    stage('clone repo') {
+      checkout scm 
     }
     stage('Building image') {
-      steps{
-        script {
-          docker.build registry + ":$BUILD_NUMBER"
-        }
+     app = docker.build('mk/nodeJs')
+    }
+    stage('Test image') {
+      app.inside {
+        echo "Test passed"
       }
     }
-  }
 }
