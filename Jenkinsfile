@@ -5,15 +5,11 @@ pipeline {
  
   stages {
     stage('clone repo') {
-      checkout scm 
-    }
-    stage('Building image') {
-     app = docker.build('mk/nodeJs')
-    }
-    stage('Test image') {
-      app.inside {
-        echo "Test passed"
-      }
+      checkout scm
+      def customImage = docker.build("my-image:${env.BUILD_ID}")
+      customImage.inside {
+        sh 'make test'
+    } 
     }
   }
 }
