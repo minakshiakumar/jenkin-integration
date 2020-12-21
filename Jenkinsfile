@@ -7,7 +7,13 @@ pipeline {
     stage('build') {
       steps {
         sh 'npm install'
-        sh 'node server.js'
+      }
+    }
+    stage('Building image') {
+      steps{
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+        }
       }
     }
   }
