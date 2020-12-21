@@ -18,7 +18,7 @@
 // }
 pipeline {
   environment {
-    dockerImage: ''
+    dockerImage:] = ''
     registry = "minakshiakumar23/docker-test"
     
   }
